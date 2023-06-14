@@ -13,7 +13,7 @@ From client
 - Access account information.
 - Change account password.
 
-From manager
+From moderator
 - View all existing accounts.
 - Remove existing accounts.
 
