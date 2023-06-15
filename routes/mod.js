@@ -1,23 +1,22 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const router = express.Router();
+
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
 
 const connection = require('../connection.js');
 const config = require('../config.json');
 const table = config.mysql.table;
 
-router.use((req, res) => {
+router.get('/show', (req, res) => {
     connection().query(`
-        CREATE TABLE IF NOT EXISTS ${table} (
-            id INT AUTO_INCREMENT,
-            email varchar(45),
-            username varchar(45),
-            password varchar(45),
-            PRIMARY KEY (id)
-        )
+        SELECT * FROM ${table}
     `, (err, results) => {
         if (err) throw err;
         console.log(results);
-    });
+        res.send({ data: results });
+    })
 });
 
 module.exports = router;

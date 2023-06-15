@@ -1,10 +1,11 @@
 const registerButton = document.querySelector('#registerButton');
+const registerMessage = document.querySelector('#registerMessage');
 const emailInput = document.getElementById('email');
 const usernameInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
 
 registerButton.addEventListener('click', async () => {
-    const res = await fetch('http://localhost:3000/signup/', {
+    const result = await fetch('http://localhost:3000/signup/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json; charset=utf-8'
@@ -14,5 +15,6 @@ registerButton.addEventListener('click', async () => {
             username: usernameInput.value,
             password: passwordInput.value
         })
-    })
+    }).then(res => res.json())
+    registerMessage.innerHTML = result.message;
 });

@@ -7,10 +7,12 @@ app.use(cors());
 const setup = require('./routes/setup.js');
 const login = require('./routes/login.js');
 const signup = require('./routes/signup.js');
+const mod = require('./routes/mod.js');
 
 app.use('/setup', setup);
 app.use('/login', login);
 app.use('/signup', signup);
+app.use('/mod', mod);
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);

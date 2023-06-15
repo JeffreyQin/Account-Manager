@@ -6,5 +6,5 @@ clientButton.addEventListener('click', () => {
 });
 
 moderatorButton.addEventListener('click', () => {
-    window.location.href = '.html';
+    window.location.href = './mod.html';
 });
