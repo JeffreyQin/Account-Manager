@@ -1,4 +1,4 @@
-# Account-Manager
+# Login Simulator
 
 - Frontend: HTML, Javascript
 - Backend: MySQL, Javascript (Node.js, Express.js). 
@@ -24,4 +24,3 @@ From moderator
 3. Install and setup MySQL on your computer.
 4. Install node.js. Run "npm install", "node database.js", and "node server.js" in terminal.
 5. Open index.html with live server on VS Code.
-6. Enjoy !!
