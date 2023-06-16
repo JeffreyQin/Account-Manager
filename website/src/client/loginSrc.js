@@ -18,10 +18,24 @@ usernameLoginButton.addEventListener('click', async () => {
     if (result.message == 'Invalid credentials.') {
         loginMsg.innerHTML = result.message;
     } else {
-        
+        window.location.href = 'account.html';
     }
 });
 
-emailLoginButton.addEventListener('click', () => {
-
+emailLoginButton.addEventListener('click', async () => {
+    const result = await fetch('http://localhost:3000/login/email', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: JSON.stringify({
+            email: userProfile.value,
+            password: password.value
+        })
+    }).then(res => res.json());
+    if (result.message == 'Invalid credentials.') {
+        loginMsg.innerHTML = result.message;
+    } else {
+        window.location.href = 'account.html';
+    }
 });
