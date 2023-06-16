@@ -13,7 +13,7 @@ router.use((req, res) => {
             username varchar(45),
             password varchar(45),
             PRIMARY KEY (id)
-        )
+        );
     `, (err, results) => {
         if (err) throw err;
         console.log(results);

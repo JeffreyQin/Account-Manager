@@ -7,6 +7,7 @@ function connectSQL() {
         user: config.mysql.user,
         password: config.mysql.password,
         database: config.mysql.database,
+        multipleStatements: true
     });
 
     connection.connect((err) => {

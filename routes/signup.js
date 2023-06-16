@@ -27,7 +27,7 @@ router.post('/', (req, res) => {
                     } else {
                         connection().query(`
                             INSERT INTO ${table}
-                            VALUES (NULL, '${email}', '${username}', '${password}')
+                            VALUES (NULL, '${email}', '${username}', '${password}');
                         `, (err, results) => {
                             if (err) throw err;
                             console.log(results);
@@ -45,7 +45,7 @@ module.exports = router;
 function checkEmail(email, callback) {
     connection().query(`
         SELECT * FROM ${table} 
-        WHERE email = '${email}'
+        WHERE email = '${email}';
     `, (err, results) => {
         if (err) throw err;
         return callback(results.length);
@@ -55,7 +55,7 @@ function checkEmail(email, callback) {
 function checkUsername(username, callback) {
     connection().query(`
         SELECT * FROM ${table}
-        WHERE username = '${username}'
+        WHERE username = '${username}';
     `, (err, results) => {
         if (err) throw err;
         return callback(results.length);
