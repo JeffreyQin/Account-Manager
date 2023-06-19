@@ -1,17 +1,10 @@
 const express = require('express');
-const session = require('express-session');
 const bodyParser = require('body-parser');
 const router = express.Router();
 require('dotenv').config();
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
-router.use(session({
-    secret: process.env.EXPRESS_SESSION_SECRET_KEY,
-    saveUninitialized: true,
-    cookie: { maxAge: 1000 * 60 * 60 * 24 },
-    resave: false
-}));
 
 const connection = require('../connection.js');
 const config = require('../config.json');
@@ -33,14 +26,10 @@ router.post('/username', (req, res) => {
                 if (err) {
                     throw err;
                 } else {
-                    const profile = {
-                        email: results[0].email,
-                        username: results[0].username,
-                        password: results[0].password
-                    };
-                    req.session.profile = profile;
-                    res.redirect('127.0.0.1:5500/index.html');
-                    //res.send({ message: "Login success."})
+                    res.send({ 
+                        message: "Login success.",
+                        username: results[0].username
+                    });
                 }
             })
         }
@@ -62,13 +51,10 @@ router.post('/email', (req, res) => {
                 if (err) {
                     throw err;
                 } else {
-                    const profile = {
-                        email: results[0].email,
-                        username: results[0].username,
-                        password: results[0].password
-                    };
-                    req.session.profile = profile;
-                    res.send({ message: "Login success."})
+                    res.send({
+                        message: 'Login success.',
+                        username: results[0].username
+                    })
                 }
             })
         }

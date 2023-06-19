@@ -5,7 +5,7 @@ const password = document.querySelector('#password');
 const loginMsg = document.querySelector('#loginMsg');
 
 usernameLoginButton.addEventListener('click', async () => {
-    const result = await fetch('http://localhost:3000/login/username', {
+    fetch('http://localhost:3000/login/username', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json; charset=utf-8'
@@ -14,16 +14,20 @@ usernameLoginButton.addEventListener('click', async () => {
             username: userProfile.value,
             password: password.value
         })
-    }).then(res => res.json());
-    if (result.message == 'Invalid credentials.') {
-        loginMsg.innerHTML = result.message;
-    } else {
-        window.location.href = 'account.html';
-    }
+    })
+    .then(res => res.json())
+    .then(res => {
+        if (res.message == 'Invalid credentials.') {
+            loginMsg.innerHTML = res.message;
+        } else {
+            document.cookie = res.username;
+            window.location.href = './account.html'
+        }
+    });
 });
 
 emailLoginButton.addEventListener('click', async () => {
-    const result = await fetch('http://localhost:3000/login/email', {
+    fetch('http://localhost:3000/login/email', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json; charset=utf-8'
@@ -32,10 +36,14 @@ emailLoginButton.addEventListener('click', async () => {
             email: userProfile.value,
             password: password.value
         })
-    }).then(res => res.json());
-    if (result.message == 'Invalid credentials.') {
-        loginMsg.innerHTML = result.message;
-    } else {
-        window.location.href = 'account.html';
-    }
+    })
+    .then(res => res.json())
+    .then(res => {
+        if (res.message == 'Invalid credentials.') {
+            loginMsg.innerHTML = res.message;
+        } else {
+            document.cookie = res.username;
+            window.location.href = './account.html'
+        }
+    })
 });

@@ -1,16 +1,13 @@
 const express = require('express');
-const session = require('express-session');
+const bodyParser = require('body-parser');
 const router = express.Router();
 
-router.use(session({
-    secret: process.env.EXPRESS_SESSION_SECRET_KEY,
-    saveUninitialized: true,
-    cookie: { maxAge: 1000 * 60 * 60 * 24 },
-    resave: false
-}));
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
 
-router.get('/load', (req, res) => {
-    console.log('ffdssdfsf')
-    res.send({ data: req.session.profile });
-})
+router.get('/info', (req, res) => {
+    console.log(req.session.loggedin);
+});
+
+
 module.exports = router;
