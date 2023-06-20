@@ -20,10 +20,9 @@ router.get('/show', (req, res) => {
 });
 
 router.post('/remove', (req, res) => {
-    const id = req.body.id;
     connection().query(`
         DELETE FROM ${table}
-        WHERE id = ${id};
+        WHERE id = ${req.body.id};
     `, (err, results) => {
         if (err) throw err;
         console.log(results);

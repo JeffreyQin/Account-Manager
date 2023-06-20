@@ -10,54 +10,59 @@ const config = require('../config.json');
 const table = config.mysql.table;
 const validator = require('../validators/loginValidate.js');
 
+router.post('/username', (req, res, next) => {
+    validator.checkCredentials('username', req.body.username, req.body.password, function(notFound) {
+            if (notFound) {
+                res.send({ message: "Invalid credentials." })
+            } else {
+                next();
+            }
+        }
+    )
+});
+
 router.post('/username', (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    validator.checkCredentials('username', username, password, function(notFound) {
+    connection().query(`
+        SELECT *
+        FROM ${table}
+        WHERE username = '${req.body.username}';
+    `, (err, results) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send({ 
+                message: "Login success.",
+                username: results[0].username
+            });
+        }
+    });
+});
+
+router.post('/email', (req, res, next) => {
+    validator.checkCredentials('email', req.body.email, req.body.password, function(notFound) {
         if (notFound) {
             res.send({ message: "Invalid credentials." })
         } else {
-            connection().query(`
-                SELECT *
-                FROM ${table}
-                WHERE username = '${username}';
-            `, (err, results) => {
-                if (err) {
-                    throw err;
-                } else {
-                    res.send({ 
-                        message: "Login success.",
-                        username: results[0].username
-                    });
-                }
-            })
+            next();
         }
-    })
+    });
 });
 
 router.post('/email', (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-    validator.checkCredentials('email', email, password, function(notFound) {
-        if (notFound) {
-            res.send({ message: "Invalid credentials." })
+    connection().query(`
+        SELECT *
+        FROM ${table}
+        WHERE email = '${req.body.email}';
+    `, (err, results) => {
+        if (err) {
+            throw err;
         } else {
-            connection().query(`
-                SELECT *
-                FROM ${table}
-                WHERE email = '${email}';
-            `, (err, results) => {
-                if (err) {
-                    throw err;
-                } else {
-                    res.send({
-                        message: 'Login success.',
-                        username: results[0].username
-                    })
-                }
-            })
+            res.send({
+                message: 'Login success.',
+                username: results[0].username
+            });
         }
-    })
+    });
 });
 
 module.exports = router;

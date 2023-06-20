@@ -10,34 +10,42 @@ const config = require('../config.json');
 const table = config.mysql.table;
 const validator = require('../validators/signupValidate.js');
 
-router.post('/', (req, res) => {
-    const email = req.body.email;
-    const username = req.body.username;
-    const password = req.body.password;
-
-    validator.checkEmail(email, function(emailResult) {
+router.post('/', (req, res, next) => {
+    validator.checkEmail(req.body.email, function(emailResult) {
         if (emailResult > 0) {
             res.send({ message: "Email already exists." });
         } else {
-            validator.checkUsername(username, function(usernameResult) {
-                if (usernameResult > 0) {
-                    res.send({ message: "Username unavailable." });
-                } else {
-                    if (validator.checkPassword(password)) {
-                        res.send({ message: "Password invalid." });
-                    } else {
-                        connection().query(`
-                            INSERT INTO ${table}
-                            VALUES (NULL, '${email}', '${username}', '${password}');
-                        `, (err, results) => {
-                            if (err) throw err;
-                            console.log(results);
-                            res.send({ message: "Account registered!" });
-                        })
-                    }
-                }
-            });
+            next();
         }
+    });
+});
+
+router.post('/', (req, res, next) => {
+    validator.checkUsername(req.body.username, function(usernameResult) {
+        if (usernameResult > 0) {
+            res.send({ message: "Username unavailable." });
+        } else {
+            next();
+        }
+    });
+});
+
+router.post('/', (req, res, next) => {
+    if (validator.checkPassword(req.body.password)) {
+        res.send({ message: "Password invalid." });
+    } else {
+        next();
+    }
+});
+
+router.post('/', (req, res) => {
+    connection().query(`
+        INSERT INTO ${table}
+        VALUES (NULL, '${req.body.email}', '${req.body.username}', '${req.body.password}');
+    `, (err, results) => {
+        if (err) throw err;
+        console.log(results);
+        res.send({ message: "Account registered!" });
     });
 });
 
