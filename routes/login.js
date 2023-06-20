@@ -32,7 +32,7 @@ router.post('/username', (req, res) => {
         } else {
             res.send({ 
                 message: "Login success.",
-                username: results[0].username
+                id: results[0].id
             });
         }
     });
@@ -59,7 +59,7 @@ router.post('/email', (req, res) => {
         } else {
             res.send({
                 message: 'Login success.',
-                username: results[0].username
+                id: results[0].id
             });
         }
     });

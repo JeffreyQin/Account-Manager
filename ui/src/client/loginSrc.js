@@ -20,7 +20,7 @@ usernameLoginButton.addEventListener('click', async () => {
         if (res.message == 'Invalid credentials.') {
             loginMsg.innerHTML = res.message;
         } else {
-            document.cookie = res.username;
+            document.cookie = res.id;
             window.location.href = './account.html'
         }
     });
@@ -42,7 +42,7 @@ emailLoginButton.addEventListener('click', async () => {
         if (res.message == 'Invalid credentials.') {
             loginMsg.innerHTML = res.message;
         } else {
-            document.cookie = res.username;
+            document.cookie = res.id;
             window.location.href = './account.html'
         }
     })

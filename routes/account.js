@@ -9,10 +9,12 @@ const connection = require('../connection.js');
 const config = require('../config.json');
 const table = config.mysql.table;
 
+const update = require('./updateAcc.js');
+
 router.get('/info', (req, res) => {
     connection().query(`
         SELECT * FROM ${table}
-        WHERE username = '${req.query['user']}';    
+        WHERE id = '${req.query['id']}';    
     `, (err, results) => {
         if (err) throw err;
         res.send({
@@ -21,5 +23,7 @@ router.get('/info', (req, res) => {
         });
     });
 });
+
+router.use('/update', update);
 
 module.exports = router;
