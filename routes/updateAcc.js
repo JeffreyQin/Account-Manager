@@ -55,5 +55,43 @@ router.post('/username', (req, res) => {
     });
 });
 
+router.post('/password', (req, res, next) => {
+    connection().query(`
+        SELECT password FROM ${table}
+        WHERE id = '${req.body.id}'
+    `, (err, results) => {
+        if (err) {
+            throw err;
+        } else {
+            if (!(results[0].password == req.body.oldPw)) {
+                res.send({ message: 'Incorrect old password entered.' });
+            } else if (!(req.body.newPw == req.body.confirmPw)) {
+                res.send({ message: 'New passwords don\'t match.' });
+            } else if (results[0].password == req.body.newPw ) {
+                res.send({ message: 'Please use a new password.' });
+            } else if (!validator.validPassword(req.body.newPw)) {
+                res.send({ message: 'New password invalid.' });
+            } else {
+                next();
+            }
+        }
+        console.log(results[0].password);
+    });
+});
+
+router.post('/password', (req, res) => {
+    connection().query(`
+        UPDATE ${table}
+        SET password = '${req.body.newPw}'
+        WHERE id = '${req.body.id}';
+    `, (err, results) => {
+        if (err) {
+            throw err;
+        } else {
+            console.log(results);
+            res.send({ message: 'Password changed!' });
+        }
+    });
+});
 
 module.exports = router;

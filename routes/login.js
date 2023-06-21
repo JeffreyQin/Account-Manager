@@ -11,6 +11,14 @@ const table = config.mysql.table;
 const validator = require('../validators/loginValidate.js');
 
 router.post('/username', (req, res, next) => {
+    if (req.body.username == "" || req.body.password == "") {
+        res.send({ message: "Please fill in all fields." });
+    } else {
+        next();
+    }
+});
+
+router.post('/username', (req, res, next) => {
     validator.checkCredentials('username', req.body.username, req.body.password, function(notFound) {
             if (notFound) {
                 res.send({ message: "Invalid credentials." })
@@ -36,6 +44,14 @@ router.post('/username', (req, res) => {
             });
         }
     });
+});
+
+router.post('/email', (req, res, next) => {
+    if (req.body.email == "" || req.body.password == "") {
+        res.send({ message: "Please fill in all fields." });
+    } else {
+        next();
+    }
 });
 
 router.post('/email', (req, res, next) => {

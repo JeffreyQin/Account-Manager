@@ -11,6 +11,14 @@ const table = config.mysql.table;
 const validator = require('../validators/signupValidate.js');
 
 router.post('/', (req, res, next) => {
+    if (req.body.email == "" || req.body.username == "" || req.body.password == "") {
+        res.send({ message: "Please fill in all fields." });
+    } else {
+        next();
+    }
+});
+
+router.post('/', (req, res, next) => {
     validator.checkEmail(req.body.email, function(emailResult) {
         if (emailResult > 0) {
             res.send({ message: "Email already exists." });
@@ -31,7 +39,7 @@ router.post('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-    if (validator.checkPassword(req.body.password)) {
+    if (!validator.validPassword(req.body.password)) {
         res.send({ message: "Password invalid." });
     } else {
         next();

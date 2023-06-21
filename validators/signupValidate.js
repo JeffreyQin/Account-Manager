@@ -22,6 +22,6 @@ exports.checkUsername = (username, callback) => {
     });
 }
 
-exports.checkPassword = (password) => {
-    return false;
+exports.validPassword = (password) => {
+    return true;
 }

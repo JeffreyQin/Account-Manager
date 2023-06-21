@@ -16,12 +16,14 @@ infoButton.addEventListener('click', async () => {
     constructInfoPanel(result);
 });
 
-resetButton.addEventListener('click', () => {});
+resetButton.addEventListener('click', async () => {
+    constructResetPanel();
+});
 
-logoutButton.addEventListener('click', () => {});
-
-function constructInfoPanel(email, username) {
-}
+logoutButton.addEventListener('click', () => {
+    document.cookie = "";
+    window.location.href = './login.html';
+});
 
 function constructInfoPanel(result) {
     accPanel.innerHTML =  '';
@@ -43,8 +45,8 @@ function constructInfoPanel(result) {
     const changeLabel = document.createElement('label');
     const changeInput = document.createElement('input');
     const changeButton = document.createElement('button');
-    const changeMsg = document.createElement('label');
     changeButton.innerHTML = 'Update';
+    const changeMsg = document.createElement('label');
     changePanel.appendChild(changeLabel);
     changePanel.appendChild(changeInput);
     changePanel.appendChild(changeButton);
@@ -77,16 +79,76 @@ function constructInfoPanel(result) {
                 })
             }).then(res => res.json());
         }
-        changeMsg.innerHTML = changeResult.message;
+        if (changeResult.message.includes('updated')) {
+            const updatedResult = await fetch(`http://localhost:3000/account/info?id=${document.cookie}`)
+                .then(res => res.json());
+            constructInfoPanel(updatedResult);
+        } else {
+            changeMsg.innerHTML = changeResult.message;
+        }
     });
 
     emailButton.addEventListener('click', () => {
         changeLabel.innerHTML = "New email: ";
+        changeMsg.innerHTML = "";
         accPanel.appendChild(changePanel);
     });
 
     usernameButton.addEventListener('click', () => {
         changeLabel.innerHTML = "New username: ";
+        changeMsg.innerHTML = "";
         accPanel.appendChild(changePanel);
     });
+}
+
+function constructResetPanel() {
+    accPanel.innerHTML = '';
+    const oldPwPanel = document.createElement('div');
+    const oldPwLabel = document.createElement('label');
+    oldPwLabel.setAttribute('for', 'oldPwInput');
+    oldPwLabel.innerHTML = 'Old password: '
+    const oldPwInput = document.createElement('input');
+    oldPwInput.setAttribute('id', 'oldPwInput');
+    oldPwPanel.appendChild(oldPwLabel);
+    oldPwPanel.appendChild(oldPwInput);
+    const newPwPanel = document.createElement('div');
+    const newPwLabel = document.createElement('label');
+    newPwLabel.setAttribute('for', 'newPwInput');
+    newPwLabel.innerHTML = 'New password: '
+    const newPwInput = document.createElement('input');
+    newPwInput.setAttribute('id', 'newPwInput');
+    newPwPanel.appendChild(newPwLabel);
+    newPwPanel.appendChild(newPwInput);
+    const confirmPwPanel = document.createElement('div');
+    const confirmPwLabel = document.createElement('label');
+    confirmPwLabel.setAttribute('for', 'confirmPwInput');
+    confirmPwLabel.innerHTML = 'Confirm new password: '
+    const confirmPwInput = document.createElement('input');
+    confirmPwInput.setAttribute('id', 'confirmPwInput');
+    confirmPwPanel.appendChild(confirmPwLabel);
+    confirmPwPanel.appendChild(confirmPwInput);
+    const resetButton = document.createElement('button');
+    resetButton.innerHTML = 'Reset password';
+    const resetMsg = document.createElement('label');
+    accPanel.appendChild(oldPwPanel);
+    accPanel.appendChild(newPwPanel);
+    accPanel.appendChild(confirmPwPanel);
+    accPanel.appendChild(resetButton);
+    accPanel.appendChild(resetMsg);
+
+    resetButton.addEventListener('click', async () => {
+        const result = await fetch('http://localhost:3000/account/update/password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            body: JSON.stringify({
+                id: document.cookie,
+                oldPw: oldPwInput.value,
+                newPw: newPwInput.value,
+                confirmPw: confirmPwInput.value
+            })
+        }).then(res => res.json());
+        resetMsg.innerHTML = result.message;
+    })
 }

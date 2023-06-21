@@ -27,6 +27,6 @@ router.post('/remove', (req, res) => {
         if (err) throw err;
         console.log(results);
     });
-})
+});
 
 module.exports = router;

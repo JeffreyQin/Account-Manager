@@ -19,21 +19,14 @@ showButton.addEventListener('click', async () => {
 
 removeButton.addEventListener('click', async () => {
     removePanel.innerHTML = '';
-    const removeForm = document.createElement('form');
     const removeLabel = document.createElement('label');
-    removeLabel.setAttribute('for', 'removeInput');
-    removeLabel.innerHTML = 'Enter account ID to remove:'
+    removeLabel.innerHTML = 'Enter account ID to remove: ';
     const removeInput = document.createElement('input');
-    removeInput.setAttribute('type', 'input');
-    removeInput.setAttribute('id', 'removeInput');
     const removeConfirmButton = document.createElement('button');
-    removeConfirmButton.setAttribute('type', 'submit');
-    removeConfirmButton.setAttribute('id', 'removeButton');
     removeConfirmButton.innerHTML = 'Confirm';
-    removeForm.appendChild(removeLabel);
-    removeForm.appendChild(removeInput);
-    removeForm.appendChild(removeConfirmButton);
-    removePanel.appendChild(removeForm);
+    removePanel.appendChild(removeLabel);
+    removePanel.appendChild(removeInput);
+    removePanel.appendChild(removeConfirmButton);
 
     removeConfirmButton.addEventListener('click', () => {
         fetch('http://localhost:3000/mod/remove', {
@@ -45,6 +38,9 @@ removeButton.addEventListener('click', async () => {
                 id: removeInput.value
             })
         });
+        
+        showPanel.innerHTML = "";
+        removePanel.innerHTML = "";
     });
 })
 

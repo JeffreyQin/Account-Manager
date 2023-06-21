@@ -1,5 +1,5 @@
 const registerButton = document.querySelector('#registerButton');
-const registerMessage = document.querySelector('#registerMessage');
+const registerMsg = document.querySelector('#registerMsg');
 const emailInput = document.getElementById('email');
 const usernameInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
@@ -16,5 +16,5 @@ registerButton.addEventListener('click', async () => {
             password: passwordInput.value
         })
     }).then(res => res.json())
-    registerMessage.innerHTML = result.message;
+    registerMsg.innerHTML = result.message;
 });

@@ -17,11 +17,11 @@ usernameLoginButton.addEventListener('click', async () => {
     })
     .then(res => res.json())
     .then(res => {
-        if (res.message == 'Invalid credentials.') {
-            loginMsg.innerHTML = res.message;
-        } else {
+        if (res.message.includes('success')) {
             document.cookie = res.id;
-            window.location.href = './account.html'
+            window.location.href = './account.html';
+        } else {
+            loginMsg.innerHTML = res.message;
         }
     });
 });
@@ -39,11 +39,11 @@ emailLoginButton.addEventListener('click', async () => {
     })
     .then(res => res.json())
     .then(res => {
-        if (res.message == 'Invalid credentials.') {
-            loginMsg.innerHTML = res.message;
-        } else {
+        if (res.message.includes('success')) {
             document.cookie = res.id;
-            window.location.href = './account.html'
+            window.location.href = './account.html';
+        } else {
+            loginMsg.innerHTML = res.message;
         }
     })
 });
