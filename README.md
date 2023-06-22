@@ -21,6 +21,27 @@ From moderator
 
 1. Clone the repository
 2. Install and setup MySQL on your computer.
-3. Create "config.json" in your local repository, and fill it out as suggested in "connection.js" to config your MySQL.
-4. Install node.js. Run "npm install" and "node server.js" in terminal.
-5. Open index.html with live server on VS Code.
+3. Create "config.json" in your local repository and fill it out as instructed below.
+4. Install node.js. Run "npm install" and "node server.js" in terminal. Make sure port 3000 is available.
+5. Open index.html with live server extension on VS Code.
+
+### config.json
+
+{
+  "mysql": {
+    "host": "localhost",
+    "user": "root",
+    "password": "",
+    "database": "",
+    "table": ""
+  }
+}
+
+
+
+
+
+
+
+
+    
