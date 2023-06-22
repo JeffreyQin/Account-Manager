@@ -21,7 +21,6 @@ resetButton.addEventListener('click', async () => {
 });
 
 logoutButton.addEventListener('click', () => {
-    document.cookie = "";
     window.location.href = './login.html';
 });
 

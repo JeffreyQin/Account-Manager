@@ -12,6 +12,14 @@ const table = config.mysql.table;
 const validator = require('../validators/signupValidate.js');
 
 router.post('/email', (req, res, next) => {
+    if (req.body.email == "") {
+        res.send({ message: 'Please fill in all fields.'});
+    } else {
+        next();
+    }
+});
+
+router.post('/email', (req, res, next) => {
     validator.checkEmail(req.body.email, function(result) {
         if (result > 0) {
             res.send({ message: 'Email already exists.' });
@@ -34,6 +42,14 @@ router.post('/email', (req, res) => {
 });
 
 router.post('/username', (req, res, next) => {
+    if (req.body.username == "") {
+        res.send({ message: 'Please fill in all fields.'});
+    } else {
+        next();
+    }
+});
+
+router.post('/username', (req, res, next) => {
     validator.checkUsername(req.body.username, function(result) {
         if (result > 0) {
             res.send({ message: 'Username unavailable.' });
@@ -53,6 +69,14 @@ router.post('/username', (req, res) => {
         console.log(results);
         res.send({ message: 'Username updated!' });
     });
+});
+
+router.post('/password', (req, res, next) => {
+    if (req.body.oldPw == "" || req.body.newPw == "" || req.body.confirmPw == "") {
+        res.send({ message: "Please fill in all fields." });
+    } else {
+        next();
+    }
 });
 
 router.post('/password', (req, res, next) => {

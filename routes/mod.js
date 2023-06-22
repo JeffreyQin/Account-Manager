@@ -20,13 +20,15 @@ router.get('/show', (req, res) => {
 });
 
 router.post('/remove', (req, res) => {
-    connection().query(`
-        DELETE FROM ${table}
-        WHERE id = ${req.body.id};
-    `, (err, results) => {
-        if (err) throw err;
-        console.log(results);
-    });
+    if (req.body.id != "" && !isNaN(req.body.id)) {
+        connection().query(`
+            DELETE FROM ${table}
+            WHERE id = ${req.body.id};
+        `, (err, results) => {
+            if (err) throw err;
+            console.log(results);
+        });
+    }
 });
 
 module.exports = router;
