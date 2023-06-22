@@ -9,10 +9,11 @@ const connection = require('../connection.js');
 const config = require('../config.json');
 const table = config.mysql.table;
 const validator = require('../validators/signupValidate.js');
+const msg = require('./resMsg.json');
 
 router.post('/', (req, res, next) => {
     if (req.body.email == "" || req.body.username == "" || req.body.password == "") {
-        res.send({ message: "Please fill in all fields." });
+        res.send({ message: msg.err.ERR_FORM_INCOMPLETE, code: 1 });
     } else {
         next();
     }
@@ -21,7 +22,7 @@ router.post('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
     validator.checkEmail(req.body.email, function(emailResult) {
         if (emailResult > 0) {
-            res.send({ message: "Email already exists." });
+            res.send({ message: msg.err.ERR_EMAIL_USED, code: 1 });
         } else {
             next();
         }
@@ -31,7 +32,7 @@ router.post('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
     validator.checkUsername(req.body.username, function(usernameResult) {
         if (usernameResult > 0) {
-            res.send({ message: "Username unavailable." });
+            res.send({ message: msg.err.ERR_USERNAME_USED, code: 1 });
         } else {
             next();
         }
@@ -40,7 +41,7 @@ router.post('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
     if (!validator.validPassword(req.body.password)) {
-        res.send({ message: "Password invalid." });
+        res.send({ message: msg.err.ERR_PASSWORD_INVALID, code: 1 });
     } else {
         next();
     }
@@ -51,9 +52,12 @@ router.post('/', (req, res) => {
         INSERT INTO ${table}
         VALUES (NULL, '${req.body.email}', '${req.body.username}', '${req.body.password}');
     `, (err, results) => {
-        if (err) throw err;
-        console.log(results);
-        res.send({ message: "Account registered!" });
+        if (err) {
+            throw err;
+        } else {
+            console.log(results);
+            res.send({ message: msg.success.SUCCESS_SIGNUP, code: 0 });
+        }
     });
 });
 

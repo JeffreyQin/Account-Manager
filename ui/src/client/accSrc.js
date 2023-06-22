@@ -78,10 +78,11 @@ function constructInfoPanel(result) {
                 })
             }).then(res => res.json());
         }
-        if (changeResult.message.includes('updated')) {
+        if (changeResult.code == 0) {
             const updatedResult = await fetch(`http://localhost:3000/account/info?id=${document.cookie}`)
                 .then(res => res.json());
             constructInfoPanel(updatedResult);
+            welcomeTitle.innerHTML = `Welcome, ${updatedResult.username}`;
         } else {
             changeMsg.innerHTML = changeResult.message;
         }

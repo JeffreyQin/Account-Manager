@@ -17,7 +17,7 @@ usernameLoginButton.addEventListener('click', async () => {
     })
     .then(res => res.json())
     .then(res => {
-        if (res.message.includes('success')) {
+        if (res.code == 0) {
             document.cookie = res.id;
             window.location.href = './account.html';
         } else {
@@ -39,7 +39,7 @@ emailLoginButton.addEventListener('click', async () => {
     })
     .then(res => res.json())
     .then(res => {
-        if (res.message.includes('success')) {
+        if (res.code == 0) {
             document.cookie = res.id;
             window.location.href = './account.html';
         } else {

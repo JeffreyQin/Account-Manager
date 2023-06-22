@@ -14,7 +14,6 @@ router.get('/show', (req, res) => {
         SELECT * FROM ${table}
     `, (err, results) => {
         if (err) throw err;
-        console.log(results);
         res.send({ data: results });
     })
 });

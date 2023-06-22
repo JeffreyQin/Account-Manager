@@ -15,6 +15,6 @@ registerButton.addEventListener('click', async () => {
             username: usernameInput.value,
             password: passwordInput.value
         })
-    }).then(res => res.json())
+    }).then(res => res.json());
     registerMsg.innerHTML = result.message;
 });

@@ -1,20 +1,20 @@
 {
-    "errMsg": {
+    "err": {
         "ERR_FORM_INCOMPLETE": "Please fill in all fields.",
         "ERR_INCORRECT_CREDENTIALS": "Invalid credentials.",
         "ERR_EMAIL_USED": "Email already exists.",
         "ERR_USERNAME_USED": "Username unavailable.",
-        "ERR_INVALID_PASSWORD": "Password invalid.",
+        "ERR_PASSWORD_INVALID": "Password invalid.",
         "ERR_INCORRECT_OLD_PASSWORD": "Incorrect old password entered.",
         "ERR_UNMATCHED_NEW_PASSWORD": "New passwords don't match.",
         "ERR_USED_NEW_PASSWORD": "Please use a new password.",
         "ERR_INVALID_NEW_PASSWORD": "New password invalid."
     }, 
-    "successMsg": {
+    "success": {
         "SUCCESS_SIGNUP": "Account registered!",
         "SUCCESS_LOGIN": "Login success.",
         "SUCCESS_EMAIL_UPDATE": "Email updated!",
         "SUCCESS_USERNAME_UPDATE": "Username updated!",
         "SUCCESS_PASSWORD_UPDATE": "Password changed!"
-    } 
+    }
 }
