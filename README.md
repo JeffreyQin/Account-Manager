@@ -11,7 +11,7 @@ From client
 - Sign up for new account (+ availability check).
 - Log into or log out from existing account.
 - Access account information.
-- Change account password.
+- Modify account information (+ availability check).
 
 From moderator
 - View all existing accounts.
