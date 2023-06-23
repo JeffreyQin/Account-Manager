@@ -29,8 +29,8 @@ From moderator
 
 {  
   "mysql": {  
-    "host": "localhost",  
-    "user": "root",  
+    "host": "",  
+    "user": "",  
     "password": "",  
     "database": "",  
     "table": ""  
