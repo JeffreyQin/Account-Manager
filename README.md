@@ -27,15 +27,15 @@ From moderator
 
 ### config.json
 
-{
-  "mysql": {
-    "host": "localhost",
-    "user": "root",
-    "password": "",
-    "database": "",
-    "table": ""
-  }
-}
+{ 
+  "mysql": { 
+    "host": "localhost", 
+    "user": "root", 
+    "password": "", 
+    "database": "", 
+    "table": "" 
+  } 
+} 
 
 
 
