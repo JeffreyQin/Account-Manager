@@ -1,9 +1,9 @@
 # Login Simulator
 
-- Frontend: HTML, Javascript
-- Backend: MySQL, Javascript (Node.js, Express.js). 
-
 This is a mini experiment with MySQL to simulate login and account management.
+
+- Frontend: HTML, JavaScript
+- Backend: MySQL, JavaScript (Node.js, Express.js)
 
 ## Features
 
