@@ -1,4 +1,4 @@
-# Login System
+# Login Simulator
 
 - Frontend: HTML, Javascript
 - Backend: MySQL, Javascript (Node.js, Express.js). 
