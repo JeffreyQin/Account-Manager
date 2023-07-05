@@ -23,7 +23,7 @@ From moderator
 2. Install and setup MySQL on your computer.
 3. Create "config.json" in your local repository and fill it out as instructed below.
 4. Install node.js. Run "npm install" and "node server.js" in terminal. Make sure port 3000 is available.
-5. Open index.html with live server extension on VS Code.
+5. Open index.html in the browser.
 
 ### config.json
 
